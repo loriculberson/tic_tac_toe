@@ -176,4 +176,18 @@ RSpec.describe Board do
       end
     end
   end
+  
+  describe "#update_board" do 
+      it "updates the board after a player has played" do 
+        board = Board.new
+
+        board_after_play = [
+          "", "O", "",
+          "", "", "",
+          "", "", "",
+        ]
+
+        expect(board.update_board(1, "O")).to eq(board_after_play)
+      end
+  end
 end

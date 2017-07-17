@@ -39,6 +39,11 @@ class Board
   def board_has_a_winner?(data)
     data.all? { |mark| mark == data[0] && data[0] != "" }
   end
+
+  def update_board(position, symbol)
+    game_board[position] = symbol
+    game_board
+  end
 end
 
 
