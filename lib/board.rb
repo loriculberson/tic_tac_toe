@@ -41,8 +41,14 @@ class Board
   end
 
   def update_board(position, symbol)
-    game_board[position] = symbol
+    if position_available?(position)
+      game_board[position] = symbol
+    end
     game_board
+  end
+
+  def position_available?(position)
+    game_board[position] == ""
   end
 end
 

@@ -9,18 +9,32 @@ RSpec.describe Game do
     it "allows two players to add markers to the board" do
       game = Game.new
 
-      game.player1_makes_play(0) 
-      game.player2_makes_play(1)   
-      # game.player2.makes_play(1)
+      game.player1_makes_play(0)
+      game.player2_makes_play(1)
 
-       updated_board = [
+      updated_board = [
             "X", "O", "",
             "", "", "",
             "", "", "",
-          ]
+      ]
     
       expect(game.game_board).to eq(updated_board)
     end
-    # it "will not allow player2 to override marker of player1" do
+    
+    it "will not allow player2 to override marker of player1" do
+      game = Game.new
+
+      game.player1_makes_play(0)
+      game.player2_makes_play(0)
+
+      board = [
+        "X", "", "",
+        "", "", "",
+        "", "", "",
+      ]
+      expect(game.game_board).to eq(board)
+    
+    end
+    
   end
 end
