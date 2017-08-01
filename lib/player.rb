@@ -1,8 +1,10 @@
 class Player
+  attr_accessor :name
 
   def initialize(board, symbol)
     @board = board
     @symbol = symbol
+    @name = name
   end
 
   def makes_play(position)
