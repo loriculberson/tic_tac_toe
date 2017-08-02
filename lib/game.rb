@@ -1,4 +1,5 @@
 class Game
+  attr_reader :player1, :player2
 
   def initialize
     @board = Board.new
@@ -8,12 +9,12 @@ class Game
   end
 
   def player1_makes_play(position)
-    current_player = @player1
+    @player_who_played_last = @player1
     @player1.makes_play(position)
   end
 
   def player2_makes_play(position)
-    current_player = @player2
+    @player_who_played_last = @player2
     @player2.makes_play(position)
   end
 
@@ -28,7 +29,7 @@ class Game
   end
 
   def winning_player
-    current_player.name
+    @player_who_played_last.name
   end
 
   def current_player
@@ -50,6 +51,4 @@ class Game
   def player2_name
     @player2.name
   end
-
-
 end

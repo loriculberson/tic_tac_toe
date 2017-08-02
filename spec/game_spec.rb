@@ -44,7 +44,7 @@ RSpec.describe Game do
         game.player2_makes_play(1)
         game.player1_makes_play(4)
 
-        expect(game.current_player).to eq(player1)
+        expect(game.current_player).to eq(game.player1)
       end
       
       it "returns player2 is the current player" do
@@ -53,7 +53,7 @@ RSpec.describe Game do
         game.player1_makes_play(0)
         game.player2_makes_play(1)
 
-        expect(game.current_player).to eq(player2)
+        expect(game.current_player).to eq(game.player2)
       end
     end
   end
@@ -61,6 +61,8 @@ RSpec.describe Game do
   describe "#winner" do 
     it "returns which player has won the game" do
       game = Game.new
+      game.player1_name="Abby"
+      game.player2_name="Bertha"
     
       game.player1_makes_play(0)
       game.player2_makes_play(1)
@@ -68,7 +70,7 @@ RSpec.describe Game do
       game.player2_makes_play(7)
       game.player1_makes_play(8)
 
-      expect(game.winner).to eq("Player1")
+      expect(game.winner).to eq("Abby")
     end
   end
 end
