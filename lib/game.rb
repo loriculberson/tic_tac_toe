@@ -39,7 +39,17 @@ class Game
     @player1.name = name
   end
 
+  def player1_name
+    @player1.name
+  end
+
   def player2_name=(name)
     @player2.name = name
   end
+
+  def player2_name
+    @player2.name
+  end
+
+
 end
