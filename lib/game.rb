@@ -51,4 +51,11 @@ class Game
   def player2_name
     @player2.name
   end
+
+  def display_board
+    puts game_board.split(',')
+  end
+
+  # def play
+  # end
 end

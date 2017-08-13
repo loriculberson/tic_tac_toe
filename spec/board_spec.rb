@@ -7,40 +7,63 @@ RSpec.describe Board do
     context "when game is initialized" do 
       it "has nine empty cells" do 
         board = Board.new
+        a = "      A   B   C"
+        b = "   1    |   |  "
+        c = "---------------"
+        d = "   2    |   |  "
+        c = "---------------"
+        e = "   3    |   |  "
+        new_board = [a,b,c,d,c,e].join(',')
 
-        nested_arrays = [
-          "", "", "",
-          "", "", "",
-          "", "", "",
-        ]
-
-        expect(board.game_board).to eq(nested_arrays)
+        expect(board.game_board).to eq(new_board)
       end
     end
   end
 
   describe "#game_won?" do 
-    context "with a winning row" do 
-      it "returns true with three consecutive O's in first row" do 
+    context "with empty board" do 
+      it "returns false, there is no winner" do 
         board = Board.new
+        a = "      A   B   C"
+        b = "   1    |   |  "
+        c = "---------------"
+        d = "   2    |   |  "
+        c = "---------------"
+        e = "   3    |   |  "
+        empty_board = [a,b,c,d,c,e].join(',')
+        board.game_board = empty_board
 
-        board.game_board = [
-          "O", "O", "O",
-          "O", "X", "O",
-          "X", "O", "X",
-        ]
+        expect(board.game_won?).to eq(false)
+      end
+    end
+
+    context "with a winning row" do 
+      it "returns true when three consecutive Os in first row" do 
+        board = Board.new
+        a = "      A   B   C"
+        b = "   1  O | O | O"
+        c = "---------------"
+        d = "   2    |   |  "
+        c = "---------------"
+        e = "   3    |   |  "
+        current_board = [a,b,c,d,c,e].join(',')
+
+        board.game_board = current_board
 
         expect(board.game_won?).to eq(true)
       end
 
       it "returns true when three consecutive X's in last row" do 
         board = Board.new
+        a = "      A   B   C"
+        b = "   1    |   |  "
+        c = "---------------"
+        d = "   2    |   |  "
+        c = "---------------"
+        e = "   3  X | X | X"
+        current_board = [a,b,c,d,c,e].join(',')
 
-        board.game_board = [
-          "", "X", "O",
-          "O", "", "O",
-          "X", "X", "X",
-        ]
+        board.game_board = current_board
 
         expect(board.game_won?).to eq(true)
       end
@@ -49,76 +72,63 @@ RSpec.describe Board do
     context "without a winning row" do 
       it "returns false if three empty strings in first row" do 
         board = Board.new
+        a = "      A   B   C"
+        b = "   1  X |   |  "
+        c = "---------------"
+        d = "   2    | O |  "
+        c = "---------------"
+        e = "   3    |   | X"
+        current_board = [a,b,c,d,c,e].join(',')
 
-        board.game_board = [
-          "", "", "",
-          "O", "X", "O",
-          "X", "O", "X",
-        ]
-
-        expect(board.game_won?).to eq(false)
-      end
-
-      it "returns false if three empty strings in last row" do 
-        board = Board.new
-
-        board.game_board = [
-          "", "X", "O",
-          "", "O", "X",
-          "", "", "",
-        ]
+        board.game_board = current_board
 
         expect(board.game_won?).to eq(false)
       end
     end
 
     context "with a winning column" do 
-      it "returns true with three consecutive O's in first column" do 
+      it "returns true when three consecutive Os in first column" do 
         board = Board.new
+        a = "      A   B   C"
+        b = "   1  O |   |  "
+        c = "---------------"
+        d = "   2  O | O |  "
+        c = "---------------"
+        e = "   3  O |   | X"
+        current_board = [a,b,c,d,c,e].join(',')
 
-        board.game_board = [
-          "O", "X", "",
-          "O", "X", "O",
-          "O", "O", "X",
-        ]
+        board.game_board = current_board
 
         expect(board.game_won?).to eq(true)
       end
 
       it "returns true when three consecutive X's in last column" do 
         board = Board.new
+        a = "      A   B   C"
+        b = "   1    |   | X"
+        c = "---------------"
+        d = "   2  O | O | X"
+        c = "---------------"
+        e = "   3  O |   | X"
+        current_board = [a,b,c,d,c,e].join(',')
 
-        board.game_board = [
-          "", "X", "X",
-          "O", "", "X",
-          "X", "", "X",
-        ]
+        board.game_board = current_board
 
         expect(board.game_won?).to eq(true)
       end
     end
 
-    context "without a winning column" do 
-      it "returns false if three empty strings in first column" do 
+    context "board in mid game" do 
+      it "returns false when there is no winner" do 
         board = Board.new
-
-        board.game_board = [
-          "", "", "X",
-          "", "X", "O",
-          "", "O", "X",
-        ]
-
-        expect(board.game_won?).to eq(false)
-      end
-
-      it "returns false if three empty strings in last column" do 
-        board = Board.new
-
-        board.game_board = [
-          "", "X", "",
-          "O", "O", "",
-          "X", "", "",
-        ]
+        a = "      A   B   C"
+        b = "   1    |   | X"
+        c = "---------------"
+        d = "   2  O | O |  "
+        c = "---------------"
+        e = "   3  O |   | X"
+        current_board = [a,b,c,d,c,e].join(',')
+        board.game_board = current_board
 
         expect(board.game_won?).to eq(false)
       end
@@ -127,67 +137,31 @@ RSpec.describe Board do
     context "with a winning diagonal" do 
       it "returns true with three consecutive O's top left to bottom right" do 
         board = Board.new
-
-        board.game_board = [
-          "O", "X", "",
-          "", "O", "X",
-          "X", "O", "O",
-        ]
+        a = "      A   B   C"
+        b = "   1  O |   | X"
+        c = "---------------"
+        d = "   2    | O |  "
+        c = "---------------"
+        e = "   3  X |   | O"
+        current_board = [a,b,c,d,c,e].join(',')
+        board.game_board = current_board
 
         expect(board.game_won?).to eq(true)
       end
 
       it "returns true when three consecutive X's bottom left to top right" do 
         board = Board.new
-
-        board.game_board = [
-          "", "X", "X",
-          "O", "X", "O",
-          "X", "", "X",
-        ]
+        a = "      A   B   C"
+        b = "   1  O |   | X"
+        c = "---------------"
+        d = "   2    | X |  "
+        c = "---------------"
+        e = "   3  X |   | O"
+        current_board = [a,b,c,d,c,e].join(',')
+        board.game_board = current_board
 
         expect(board.game_won?).to eq(true)
       end
     end
-
-    context "without a winning diagonal" do 
-      it "returns false if three empty strings top left to bottom right" do 
-        board = Board.new
-
-        board.game_board = [
-          "", "X", "",
-          "X", "", "O",
-          "", "O", "X",
-        ]
-
-        expect(board.game_won?).to eq(false)
-      end
-
-      it "returns false if three empty strings bottom left to top right" do 
-        board = Board.new
-
-        board.game_board = [
-          "", "X", "",
-          "O", "", "",
-          "", "", "X",
-        ]
-
-        expect(board.game_won?).to eq(false)
-      end
-    end
-  end
-  
-  describe "#update_board" do 
-      it "updates the board after a player has played" do 
-        board = Board.new
-
-        board_after_play = [
-          "", "O", "",
-          "", "", "",
-          "", "", "",
-        ]
-
-        expect(board.update_board(1, "O")).to eq(board_after_play)
-      end
   end
 end
