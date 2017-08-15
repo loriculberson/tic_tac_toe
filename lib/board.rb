@@ -11,18 +11,41 @@ class Board
     @game_board = [a,b,c,d,c,e].join(',')
   end
 
+  def update_board(position, symbol)
+    position = translate_position[position]
+    if position_available?(position)
+      game_board[position] = symbol
+    end
+    game_board
+  end
+
   def game_won?
     in_a_row? || in_a_column? || in_a_diagonal?
   end
 
-  def all_spaces_filled?
-    translate_position.all? {|k, v| game_board[v] != " " }
-  end
-  
   def game_tied?
     all_spaces_filled? && !game_won?
   end
 
+  def valid_position?(position)
+    translate_position.has_key?(position)
+  end
+  
+  def clear
+    a = "      A   B   C"
+    b = "   1    |   |  "
+    c = "---------------"
+    d = "   2    |   |  "
+    c = "---------------"
+    e = "   3    |   |  "
+    @game_board = [a,b,c,d,c,e].join(',')
+  end
+  
+  private
+  def all_spaces_filled?
+    translate_position.all? {|k, v| game_board[v] != " " }
+  end
+  
   def in_a_row?
     row_1 = [game_board[22], game_board[26], game_board[30]]
     row_2 = [game_board[54], game_board[58], game_board[62]]
@@ -48,7 +71,7 @@ class Board
     b2 = game_board[58]
     c3 = game_board[94]
     data = [a1, b2, c3]
-    board_has_diagonol_winner?(data)
+    winning_row_column_or_diagonal?(data)
   end
 
   def diagonal_6_to_top?
@@ -56,25 +79,17 @@ class Board
     b2 = game_board[58]
     c1 = game_board[30]
     data = [a3, b2, c1]
-    board_has_diagonol_winner?(data)
+    winning_row_column_or_diagonal?(data)
   end
 
   def board_has_a_winner?(data)
     data.any? do |set|
-      set.all? { |mark| mark == set[0] && set[0] != " " }
+      winning_row_column_or_diagonal?(set)
     end
   end
 
-  def board_has_diagonol_winner?(data)
-    data.all? { |mark| mark == data[0] && data[0] != " " }
-  end
-
-  def update_board(position, symbol)
-    position = translate_position[position]
-    if position_available?(position)
-      game_board[position] = symbol
-    end
-    game_board
+  def winning_row_column_or_diagonal?(set)
+    set.all? { |mark| mark == set[0] && set[0] != " " }
   end
 
   def position_available?(position)
@@ -89,18 +104,6 @@ class Board
     }    
   end
 
-  def clear
-    a = "      A   B   C"
-    b = "   1    |   |  "
-    c = "---------------"
-    d = "   2    |   |  "
-    c = "---------------"
-    e = "   3    |   |  "
-    @game_board = [a,b,c,d,c,e].join(',')
-  end
 
-  def valid_position?(position)
-    translate_position.has_key?(position)
-  end
 end
 
