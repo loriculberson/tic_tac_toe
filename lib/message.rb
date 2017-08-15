@@ -26,8 +26,8 @@ class Message
   
   def instructions(name1, name2)
     "Each cell position has an alpha numeric value ranging from A1 to C3 \n" +
-    "When it's your turn, enter the alpha numeric cell in which you would like \n"+
-    "to make your mark. Your mark has been predetermined for you. \n" +
+    "When it's your turn, enter the alpha numeric value in which you would like \n"+
+    "your mark to be made (ex. A3). Your mark has been predetermined for you. \n" +
     "#{greet_player1(name1)}" + "\n" + 
     "#{greet_player2(name2)}"
   end
@@ -53,6 +53,22 @@ class Message
   end
 
   def your_turn(name)
-    "#{name} your turn. Enter board position number"
+    "#{name} your turn. Board position: "
+  end
+
+  def winner_declared(name)
+    "#{name} YOU WIN!"
+  end
+
+  def game_tied
+    "Looks like a tie!"
+  end
+
+  def play_again
+    "Would you like to play again? 'Y' or 'N'"
+  end
+
+  def try_again(name)
+    "Invalid position #{name}. Try again. Board position: "
   end
 end

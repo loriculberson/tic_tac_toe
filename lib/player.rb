@@ -8,6 +8,7 @@ class Player
   end
 
   def makes_play(position)
+    position = position.upcase
     @board.update_board(position, @symbol)
   end
 end

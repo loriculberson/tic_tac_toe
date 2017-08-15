@@ -68,11 +68,11 @@ RSpec.describe Message do
       greet1 = "#{name1}, you will mark the board with the letter X"
       greet2 = "#{name2}, you will mark the board with the letter O"
       game_instructions = 
-      "Each cell position has a numeric value ranging from 1 to 9 \n" +
-      "When it's your turn, enter the number in which you would like \n"+
-      "to make your mark. Your mark has been predetermined for you. \n" +
-      "#{greet1}" + "\n" +
-      "#{greet2}"
+        "Each cell position has an alpha numeric value ranging from A1 to C3 \n" +
+        "When it's your turn, enter the alpha numeric value in which you would like \n"+
+        "your mark to be made (ex. A3). Your mark has been predetermined for you. \n" +
+        "#{greet1}" + "\n" +
+        "#{greet2}"
 
       expect(message.instructions(name1, name2)).to eq(game_instructions)
     end

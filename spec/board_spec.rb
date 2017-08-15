@@ -164,4 +164,50 @@ RSpec.describe Board do
       end
     end
   end
+
+  describe "#tied?" do 
+    context "when game is over and no winner" do 
+      it "returns true there is no victor" do 
+        board = Board.new
+        a = "      A   B   C"
+        b = "   1  X | O | X"
+        c = "---------------"
+        d = "   2  X | O | X"
+        c = "---------------"
+        e = "   3  O | X | O"
+        current_board = [a,b,c,d,c,e].join(',')
+        board.game_board = current_board
+
+        expect(board.game_tied?).to eq(true)
+      end
+    end
+  end
+
+  describe "#clear" do 
+    context "when game is over and players play again" do 
+      it "returns empty board" do 
+        board = Board.new
+        a = "      A   B   C"
+        b = "   1  X | O | X"
+        c = "---------------"
+        d = "   2  X | O | X"
+        c = "---------------"
+        e = "   3  O | X | O"
+        current_board = [a,b,c,d,c,e].join(',')
+        board.game_board = current_board
+
+        a1 = "      A   B   C"
+        b1 = "   1    |   |  "
+        c1 = "---------------"
+        d1 = "   2    |   |  "
+        c1 = "---------------"
+        e1 = "   3    |   |  "
+        new_board = [a1,b1,c1,d1,c1,e1].join(',')
+
+        board.clear
+
+        expect(board.game_board).to eq(new_board)
+      end
+    end
+  end
 end

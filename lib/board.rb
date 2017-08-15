@@ -15,6 +15,14 @@ class Board
     in_a_row? || in_a_column? || in_a_diagonal?
   end
 
+  def all_spaces_filled?
+    translate_position.all? {|k, v| game_board[v] != " " }
+  end
+  
+  def game_tied?
+    all_spaces_filled? && !game_won?
+  end
+
   def in_a_row?
     row_1 = [game_board[22], game_board[26], game_board[30]]
     row_2 = [game_board[54], game_board[58], game_board[62]]
@@ -77,13 +85,22 @@ class Board
     {
       "A1"=> 22, "A2"=> 54, "A3"=> 86,
       "B1"=> 26, "B2"=> 58, "B3"=> 90,
-      "C1"=> 30, "C2"=> 62, "C3"=> 94,
-      "a1"=> 22, "a2"=> 54, "a3"=> 86,
-      "b1"=> 26, "b2"=> 58, "b3"=> 90,
-      "c1"=> 30, "c2"=> 62, "c3"=> 94
+      "C1"=> 30, "C2"=> 62, "C3"=> 94
     }    
   end
 
-end
+  def clear
+    a = "      A   B   C"
+    b = "   1    |   |  "
+    c = "---------------"
+    d = "   2    |   |  "
+    c = "---------------"
+    e = "   3    |   |  "
+    @game_board = [a,b,c,d,c,e].join(',')
+  end
 
+  def valid_position?(position)
+    translate_position.has_key?(position)
+  end
+end
 
